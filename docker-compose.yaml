@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: '$MONGO_DB_USER'
+      MONGO_INITDB_ROOT_PASSWORD: '$MONGO_DB_PASS'
+    ports:
+      - '$MONGO_DB_PORT:27017'
+    volumes:
+      - /var/lib/mongodb:/data/db
+    networks:
+      - wedding_network
+
+  memcached:
+    image: memcached
+    container_name: memcached
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - '$MEMCACHED_PORT:11211'
+    networks:
+      - wedding_network
+
+networks:
+  wedding_network:
+    driver: bridge

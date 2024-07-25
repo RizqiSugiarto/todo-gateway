@@ -1,0 +1,44 @@
+app_env: local
+allowed_origins:
+preference_service: true
+invitation_service: true
+host: auth-service
+port: 8110
+context_timeout: 2
+
+mongo:
+  db_host: mongodb
+  db_port: 27017
+  db_user:
+  db_pass:
+  db_name: auth-service
+
+memcached:
+  db_host: memcached
+  db_port: 11211
+
+jwt:
+  access_token_expiry_minute: 5
+  refresh_token_expiry_minute: 10
+  access_token_secret: access_token_secret
+  refresh_token_secret: refresh_token_secret
+
+grpc_server:
+  network: tcp
+  host: auth-service
+  port: 9000
+  tls: false
+
+grpc_client:
+  auth_service:
+    host: auth-service
+    port: 9000
+    tls: false
+  preference_service:
+    host: preference_service
+    port: 9050
+    tls: false
+  invitation_service:
+    host: invitation_service
+    port: 9100
+    tls: false

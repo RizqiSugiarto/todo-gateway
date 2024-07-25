@@ -1,0 +1,312 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "payload_messages.proto";
+import "social/payload_messages.proto";
+import "invitation-category/payload_messages.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./stubs";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  security_definitions: {
+      security: {
+              key: "Bearer"
+              value: {
+                  type: TYPE_API_KEY
+                  in: IN_HEADER
+                  name: "Authorization"
+                  description: "Authentication token, prefixed by Bearer: Bearer <token>"
+              }
+      }
+  }
+  security: {
+      security_requirement: {
+          key: "Bearer"
+      }
+  }
+  info: {
+    title: "Auth Service",
+    version: "v1.0.0"
+  }
+  consumes: "application/json"
+  produces: "application/json"
+};
+
+service AuthService {
+  // Auth
+  rpc Verify (google.protobuf.Empty) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      get: "/auth-service/api/v1/auth/verify",
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Auth"]
+        summary: "Verify request"
+        description: "This API for verify request"
+    };
+  }
+
+  rpc LoginAdmin (LoginRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      post: "/auth-service/api/v1/auth/login-admin",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        security: {}
+        tags: ["Auth"]
+        summary: "Admin login"
+        description: "This API for admin login"
+    };
+  }
+
+  rpc LoginCustomer (LoginRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      post: "/auth-service/api/v1/auth/login-customer",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        security: {}
+        tags: ["Auth"]
+        summary: "Customer login"
+        description: "This API for customer login"
+    };
+  }
+
+  rpc LoginCommittee (LoginRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      post: "/auth-service/api/v1/auth/login-committee",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        security: {}
+        tags: ["Auth"]
+        summary: "Committee login"
+        description: "This API for committee login"
+    };
+  }
+
+  rpc RefreshToken (RefreshTokenRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      post: "/auth-service/api/v1/auth/refresh-token",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Auth"]
+        summary: "Refresh token"
+        description: "This API for refresh token"
+    };
+  }
+
+  rpc Logout (LogoutRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      post: "/auth-service/api/v1/auth/logout",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Auth"]
+        summary: "User logout"
+        description: "This API for user logout"
+    };
+  }
+
+  // Users
+  rpc CreateUser (CreateUserRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      post: "/auth-service/api/v1/users",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Users"]
+        summary: "Create user"
+        description: "This API for create user"
+    };
+  }
+
+  rpc GetAllUser (GetAllUserRequest) returns (GetAllUserResponse) {
+    option (google.api.http) = {
+      get: "/auth-service/api/v1/users",
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Users"]
+        summary: "Get all user"
+        description: "This API for get all user"
+    };
+  }
+
+  rpc GetUserByID (GetUserByIDRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      get: "/auth-service/api/v1/users/{id}",
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Users"]
+        summary: "Get user by id"
+        description: "This API for get user by id"
+    };
+  }
+
+  rpc UpdateUser (UpdateUserRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      patch: "/auth-service/api/v1/users/{id}",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Users"]
+        summary: "Update user by id"
+        description: "This API for update user by id"
+    };
+  }
+
+  rpc DeleteUser (DeleteUserRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      delete: "/auth-service/api/v1/users/{id}",
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Users"]
+        summary: "Delete user by id"
+        description: "This API for delete user by id"
+    };
+  }
+
+  // Profiles
+  rpc GetProfile (google.protobuf.Empty) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      get: "/auth-service/api/v1/profiles",
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Profiles"]
+        summary: "Get profile"
+        description: "This API for get profile"
+    };
+  }
+
+  rpc ChangePassword (ChangePasswordRequest) returns (AuthBaseResponse) {
+    option (google.api.http) = {
+      put: "/auth-service/api/v1/profiles/change-password",
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: ["Profiles"]
+        summary: "Change password"
+        description: "This API for change password"
+    };
+  }
+    
+  // Socials
+  rpc CreateSocial(CreateSocialRequest) returns (SocialBaseResponse) {
+      option (google.api.http) = {
+          post: "/auth-service/api/v1/socials",
+          body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Socials"]
+          summary: "Create social"
+          description: "This API for create social"
+      };
+  };
+
+  rpc GetSocial(GetSocialByIDRequest) returns (SocialBaseResponse) {
+      option (google.api.http) = {
+          get: "/auth-service/api/v1/socials/{id}",
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Socials"]
+          summary: "Get social by id"
+          description: "This API for get social by id"
+      };
+  };
+
+  rpc GetAllSocial(GetAllSocialRequest)returns (GetAllSocialResponse) {
+      option (google.api.http) = {
+          get: "/auth-service/api/v1/socials",
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Socials"]
+          summary: "Get all social"
+          description: "This API for get all social"
+      };
+  };
+
+  rpc UpdateSocial(UpdateSocialByIDRequest) returns (SocialBaseResponse) {
+      option (google.api.http) = {
+          patch: "/auth-service/api/v1/socials/{id}",
+          body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Socials"]
+          summary: "Update social by id"
+          description: "This API for update social by id"
+      };
+  };
+
+  rpc DeleteSocial(DeleteSocialByIDRequest) returns (SocialBaseResponse) {
+      option (google.api.http) = {
+          delete: "/auth-service/api/v1/socials/{id}",
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Socials"]
+          summary: "Delete social by id"
+          description: "This API for delete social by id"
+      };
+  };
+
+  // Invitation Categories
+  rpc CreateInvitationCategory(CreateInvitationCategoryRequest) returns (InvitationCategoryBaseResponse) {
+      option (google.api.http) = {
+          post: "/auth-service/api/v1/invitation-categories",
+          body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Invitation Categories"]
+          summary: "Create invitation category"
+          description: "This API for create invitation category"
+      };
+  };
+
+  rpc GetInvitationCategory(GetInvitationCategoryByIDRequest) returns (InvitationCategoryBaseResponse) {
+      option (google.api.http) = {
+          get: "/auth-service/api/v1/invitation-categories/{id}",
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Invitation Categories"]
+          summary: "Get invitation category by id"
+          description: "This API for get invitation category by id"
+      };
+  };
+
+  rpc GetAllInvitationCategory(GetAllInvitationCategoryRequest)returns (GetAllInvitationCategoryResponse) {
+      option (google.api.http) = {
+          get: "/auth-service/api/v1/invitation-categories",
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Invitation Categories"]
+          summary: "Get all invitation category"
+          description: "This API for get all invitation category"
+      };
+  };
+
+  rpc UpdateInvitationCategory(UpdateInvitationCategoryByIDRequest) returns (InvitationCategoryBaseResponse) {
+      option (google.api.http) = {
+          patch: "/auth-service/api/v1/invitation-categories/{id}",
+          body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Invitation Categories"]
+          summary: "Update invitation category by id"
+          description: "This API for update invitation category by id"
+      };
+  };
+
+  rpc DeleteInvitationCategory(DeleteInvitationCategoryByIDRequest) returns (InvitationCategoryBaseResponse) {
+      option (google.api.http) = {
+          delete: "/auth-service/api/v1/invitation-categories/{id}",
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Invitation Categories"]
+          summary: "Delete invitation category by id"
+          description: "This API for delete invitation category by id"
+      };
+  };
+}
