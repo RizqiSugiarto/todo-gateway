@@ -8,8 +8,8 @@ package stubs
 
 import (
 	context "context"
-	invitation_category "github.com/digisata/auth-service/stubs/invitation-category"
-	social "github.com/digisata/auth-service/stubs/social"
+	activity "github.com/digisata/todo-gateway/stubs/activity"
+	task "github.com/digisata/todo-gateway/stubs/task"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,29 +22,19 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	AuthService_Verify_FullMethodName                   = "/proto.AuthService/Verify"
-	AuthService_LoginAdmin_FullMethodName               = "/proto.AuthService/LoginAdmin"
-	AuthService_LoginCustomer_FullMethodName            = "/proto.AuthService/LoginCustomer"
-	AuthService_LoginCommittee_FullMethodName           = "/proto.AuthService/LoginCommittee"
-	AuthService_RefreshToken_FullMethodName             = "/proto.AuthService/RefreshToken"
-	AuthService_Logout_FullMethodName                   = "/proto.AuthService/Logout"
-	AuthService_CreateUser_FullMethodName               = "/proto.AuthService/CreateUser"
-	AuthService_GetAllUser_FullMethodName               = "/proto.AuthService/GetAllUser"
-	AuthService_GetUserByID_FullMethodName              = "/proto.AuthService/GetUserByID"
-	AuthService_UpdateUser_FullMethodName               = "/proto.AuthService/UpdateUser"
-	AuthService_DeleteUser_FullMethodName               = "/proto.AuthService/DeleteUser"
-	AuthService_GetProfile_FullMethodName               = "/proto.AuthService/GetProfile"
-	AuthService_ChangePassword_FullMethodName           = "/proto.AuthService/ChangePassword"
-	AuthService_CreateSocial_FullMethodName             = "/proto.AuthService/CreateSocial"
-	AuthService_GetSocial_FullMethodName                = "/proto.AuthService/GetSocial"
-	AuthService_GetAllSocial_FullMethodName             = "/proto.AuthService/GetAllSocial"
-	AuthService_UpdateSocial_FullMethodName             = "/proto.AuthService/UpdateSocial"
-	AuthService_DeleteSocial_FullMethodName             = "/proto.AuthService/DeleteSocial"
-	AuthService_CreateInvitationCategory_FullMethodName = "/proto.AuthService/CreateInvitationCategory"
-	AuthService_GetInvitationCategory_FullMethodName    = "/proto.AuthService/GetInvitationCategory"
-	AuthService_GetAllInvitationCategory_FullMethodName = "/proto.AuthService/GetAllInvitationCategory"
-	AuthService_UpdateInvitationCategory_FullMethodName = "/proto.AuthService/UpdateInvitationCategory"
-	AuthService_DeleteInvitationCategory_FullMethodName = "/proto.AuthService/DeleteInvitationCategory"
+	AuthService_Login_FullMethodName           = "/proto.AuthService/Login"
+	AuthService_Logout_FullMethodName          = "/proto.AuthService/Logout"
+	AuthService_CreateActivity_FullMethodName  = "/proto.AuthService/CreateActivity"
+	AuthService_GetActivity_FullMethodName     = "/proto.AuthService/GetActivity"
+	AuthService_GetAllActivity_FullMethodName  = "/proto.AuthService/GetAllActivity"
+	AuthService_UpdateActivity_FullMethodName  = "/proto.AuthService/UpdateActivity"
+	AuthService_DeleteActivity_FullMethodName  = "/proto.AuthService/DeleteActivity"
+	AuthService_CreateTask_FullMethodName      = "/proto.AuthService/CreateTask"
+	AuthService_GetTask_FullMethodName         = "/proto.AuthService/GetTask"
+	AuthService_GetAllTask_FullMethodName      = "/proto.AuthService/GetAllTask"
+	AuthService_UpdateTask_FullMethodName      = "/proto.AuthService/UpdateTask"
+	AuthService_BatchUpdateTask_FullMethodName = "/proto.AuthService/BatchUpdateTask"
+	AuthService_DeleteTask_FullMethodName      = "/proto.AuthService/DeleteTask"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -52,33 +42,21 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthServiceClient interface {
 	// Auth
-	Verify(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	LoginAdmin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	LoginCustomer(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	LoginCommittee(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	// Users
-	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	GetAllUser(ctx context.Context, in *GetAllUserRequest, opts ...grpc.CallOption) (*GetAllUserResponse, error)
-	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	// Profiles
-	GetProfile(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
-	// Socials
-	CreateSocial(ctx context.Context, in *social.CreateSocialRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error)
-	GetSocial(ctx context.Context, in *social.GetSocialByIDRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error)
-	GetAllSocial(ctx context.Context, in *social.GetAllSocialRequest, opts ...grpc.CallOption) (*social.GetAllSocialResponse, error)
-	UpdateSocial(ctx context.Context, in *social.UpdateSocialByIDRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error)
-	DeleteSocial(ctx context.Context, in *social.DeleteSocialByIDRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error)
-	// Invitation Categories
-	CreateInvitationCategory(ctx context.Context, in *invitation_category.CreateInvitationCategoryRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error)
-	GetInvitationCategory(ctx context.Context, in *invitation_category.GetInvitationCategoryByIDRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error)
-	GetAllInvitationCategory(ctx context.Context, in *invitation_category.GetAllInvitationCategoryRequest, opts ...grpc.CallOption) (*invitation_category.GetAllInvitationCategoryResponse, error)
-	UpdateInvitationCategory(ctx context.Context, in *invitation_category.UpdateInvitationCategoryByIDRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error)
-	DeleteInvitationCategory(ctx context.Context, in *invitation_category.DeleteInvitationCategoryByIDRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error)
+	Logout(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*AuthBaseResponse, error)
+	// Activities
+	CreateActivity(ctx context.Context, in *activity.CreateActivityRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error)
+	GetActivity(ctx context.Context, in *activity.GetActivityByIDRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error)
+	GetAllActivity(ctx context.Context, in *activity.GetAllActivityRequest, opts ...grpc.CallOption) (*activity.GetAllActivityResponse, error)
+	UpdateActivity(ctx context.Context, in *activity.UpdateActivityByIDRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error)
+	DeleteActivity(ctx context.Context, in *activity.DeleteActivityByIDRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error)
+	// Taks
+	CreateTask(ctx context.Context, in *task.CreateTaskRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error)
+	GetTask(ctx context.Context, in *task.GetTaskByIDRequest, opts ...grpc.CallOption) (*task.GetTaskByIDResponse, error)
+	GetAllTask(ctx context.Context, in *task.GetAllTaskByActivityIDRequest, opts ...grpc.CallOption) (*task.GetAllTaskByActivityIDResponse, error)
+	UpdateTask(ctx context.Context, in *task.UpdateTaskByIDRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error)
+	BatchUpdateTask(ctx context.Context, in *task.BatchUpdateTaskRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error)
+	DeleteTask(ctx context.Context, in *task.DeleteTaskByIDRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error)
 }
 
 type authServiceClient struct {
@@ -89,57 +67,17 @@ func NewAuthServiceClient(cc grpc.ClientConnInterface) AuthServiceClient {
 	return &authServiceClient{cc}
 }
 
-func (c *authServiceClient) Verify(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_Verify_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, AuthService_Login_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) LoginAdmin(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_LoginAdmin_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) LoginCustomer(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_LoginCustomer_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) LoginCommittee(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_LoginCommittee_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_RefreshToken_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) Logout(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AuthBaseResponse)
 	err := c.cc.Invoke(ctx, AuthService_Logout_FullMethodName, in, out, cOpts...)
@@ -149,170 +87,110 @@ func (c *authServiceClient) Logout(ctx context.Context, in *LogoutRequest, opts 
 	return out, nil
 }
 
-func (c *authServiceClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) CreateActivity(ctx context.Context, in *activity.CreateActivityRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_CreateUser_FullMethodName, in, out, cOpts...)
+	out := new(activity.ActivityBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_CreateActivity_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) GetAllUser(ctx context.Context, in *GetAllUserRequest, opts ...grpc.CallOption) (*GetAllUserResponse, error) {
+func (c *authServiceClient) GetActivity(ctx context.Context, in *activity.GetActivityByIDRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAllUserResponse)
-	err := c.cc.Invoke(ctx, AuthService_GetAllUser_FullMethodName, in, out, cOpts...)
+	out := new(activity.ActivityBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetActivity_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) GetAllActivity(ctx context.Context, in *activity.GetAllActivityRequest, opts ...grpc.CallOption) (*activity.GetAllActivityResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_GetUserByID_FullMethodName, in, out, cOpts...)
+	out := new(activity.GetAllActivityResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetAllActivity_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) UpdateActivity(ctx context.Context, in *activity.UpdateActivityByIDRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_UpdateUser_FullMethodName, in, out, cOpts...)
+	out := new(activity.ActivityBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_UpdateActivity_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) DeleteActivity(ctx context.Context, in *activity.DeleteActivityByIDRequest, opts ...grpc.CallOption) (*activity.ActivityBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_DeleteUser_FullMethodName, in, out, cOpts...)
+	out := new(activity.ActivityBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_DeleteActivity_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) GetProfile(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) CreateTask(ctx context.Context, in *task.CreateTaskRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_GetProfile_FullMethodName, in, out, cOpts...)
+	out := new(task.TaskBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_CreateTask_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*AuthBaseResponse, error) {
+func (c *authServiceClient) GetTask(ctx context.Context, in *task.GetTaskByIDRequest, opts ...grpc.CallOption) (*task.GetTaskByIDResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_ChangePassword_FullMethodName, in, out, cOpts...)
+	out := new(task.GetTaskByIDResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetTask_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) CreateSocial(ctx context.Context, in *social.CreateSocialRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error) {
+func (c *authServiceClient) GetAllTask(ctx context.Context, in *task.GetAllTaskByActivityIDRequest, opts ...grpc.CallOption) (*task.GetAllTaskByActivityIDResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(social.SocialBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_CreateSocial_FullMethodName, in, out, cOpts...)
+	out := new(task.GetAllTaskByActivityIDResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetAllTask_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) GetSocial(ctx context.Context, in *social.GetSocialByIDRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error) {
+func (c *authServiceClient) UpdateTask(ctx context.Context, in *task.UpdateTaskByIDRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(social.SocialBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_GetSocial_FullMethodName, in, out, cOpts...)
+	out := new(task.TaskBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_UpdateTask_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) GetAllSocial(ctx context.Context, in *social.GetAllSocialRequest, opts ...grpc.CallOption) (*social.GetAllSocialResponse, error) {
+func (c *authServiceClient) BatchUpdateTask(ctx context.Context, in *task.BatchUpdateTaskRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(social.GetAllSocialResponse)
-	err := c.cc.Invoke(ctx, AuthService_GetAllSocial_FullMethodName, in, out, cOpts...)
+	out := new(task.TaskBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_BatchUpdateTask_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authServiceClient) UpdateSocial(ctx context.Context, in *social.UpdateSocialByIDRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error) {
+func (c *authServiceClient) DeleteTask(ctx context.Context, in *task.DeleteTaskByIDRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(social.SocialBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_UpdateSocial_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) DeleteSocial(ctx context.Context, in *social.DeleteSocialByIDRequest, opts ...grpc.CallOption) (*social.SocialBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(social.SocialBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_DeleteSocial_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) CreateInvitationCategory(ctx context.Context, in *invitation_category.CreateInvitationCategoryRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(invitation_category.InvitationCategoryBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_CreateInvitationCategory_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) GetInvitationCategory(ctx context.Context, in *invitation_category.GetInvitationCategoryByIDRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(invitation_category.InvitationCategoryBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_GetInvitationCategory_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) GetAllInvitationCategory(ctx context.Context, in *invitation_category.GetAllInvitationCategoryRequest, opts ...grpc.CallOption) (*invitation_category.GetAllInvitationCategoryResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(invitation_category.GetAllInvitationCategoryResponse)
-	err := c.cc.Invoke(ctx, AuthService_GetAllInvitationCategory_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) UpdateInvitationCategory(ctx context.Context, in *invitation_category.UpdateInvitationCategoryByIDRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(invitation_category.InvitationCategoryBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_UpdateInvitationCategory_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authServiceClient) DeleteInvitationCategory(ctx context.Context, in *invitation_category.DeleteInvitationCategoryByIDRequest, opts ...grpc.CallOption) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(invitation_category.InvitationCategoryBaseResponse)
-	err := c.cc.Invoke(ctx, AuthService_DeleteInvitationCategory_FullMethodName, in, out, cOpts...)
+	out := new(task.TaskBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_DeleteTask_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -324,33 +202,21 @@ func (c *authServiceClient) DeleteInvitationCategory(ctx context.Context, in *in
 // for forward compatibility
 type AuthServiceServer interface {
 	// Auth
-	Verify(context.Context, *emptypb.Empty) (*AuthBaseResponse, error)
-	LoginAdmin(context.Context, *LoginRequest) (*AuthBaseResponse, error)
-	LoginCustomer(context.Context, *LoginRequest) (*AuthBaseResponse, error)
-	LoginCommittee(context.Context, *LoginRequest) (*AuthBaseResponse, error)
-	RefreshToken(context.Context, *RefreshTokenRequest) (*AuthBaseResponse, error)
-	Logout(context.Context, *LogoutRequest) (*AuthBaseResponse, error)
-	// Users
-	CreateUser(context.Context, *CreateUserRequest) (*AuthBaseResponse, error)
-	GetAllUser(context.Context, *GetAllUserRequest) (*GetAllUserResponse, error)
-	GetUserByID(context.Context, *GetUserByIDRequest) (*AuthBaseResponse, error)
-	UpdateUser(context.Context, *UpdateUserRequest) (*AuthBaseResponse, error)
-	DeleteUser(context.Context, *DeleteUserRequest) (*AuthBaseResponse, error)
-	// Profiles
-	GetProfile(context.Context, *emptypb.Empty) (*AuthBaseResponse, error)
-	ChangePassword(context.Context, *ChangePasswordRequest) (*AuthBaseResponse, error)
-	// Socials
-	CreateSocial(context.Context, *social.CreateSocialRequest) (*social.SocialBaseResponse, error)
-	GetSocial(context.Context, *social.GetSocialByIDRequest) (*social.SocialBaseResponse, error)
-	GetAllSocial(context.Context, *social.GetAllSocialRequest) (*social.GetAllSocialResponse, error)
-	UpdateSocial(context.Context, *social.UpdateSocialByIDRequest) (*social.SocialBaseResponse, error)
-	DeleteSocial(context.Context, *social.DeleteSocialByIDRequest) (*social.SocialBaseResponse, error)
-	// Invitation Categories
-	CreateInvitationCategory(context.Context, *invitation_category.CreateInvitationCategoryRequest) (*invitation_category.InvitationCategoryBaseResponse, error)
-	GetInvitationCategory(context.Context, *invitation_category.GetInvitationCategoryByIDRequest) (*invitation_category.InvitationCategoryBaseResponse, error)
-	GetAllInvitationCategory(context.Context, *invitation_category.GetAllInvitationCategoryRequest) (*invitation_category.GetAllInvitationCategoryResponse, error)
-	UpdateInvitationCategory(context.Context, *invitation_category.UpdateInvitationCategoryByIDRequest) (*invitation_category.InvitationCategoryBaseResponse, error)
-	DeleteInvitationCategory(context.Context, *invitation_category.DeleteInvitationCategoryByIDRequest) (*invitation_category.InvitationCategoryBaseResponse, error)
+	Login(context.Context, *LoginRequest) (*AuthBaseResponse, error)
+	Logout(context.Context, *emptypb.Empty) (*AuthBaseResponse, error)
+	// Activities
+	CreateActivity(context.Context, *activity.CreateActivityRequest) (*activity.ActivityBaseResponse, error)
+	GetActivity(context.Context, *activity.GetActivityByIDRequest) (*activity.ActivityBaseResponse, error)
+	GetAllActivity(context.Context, *activity.GetAllActivityRequest) (*activity.GetAllActivityResponse, error)
+	UpdateActivity(context.Context, *activity.UpdateActivityByIDRequest) (*activity.ActivityBaseResponse, error)
+	DeleteActivity(context.Context, *activity.DeleteActivityByIDRequest) (*activity.ActivityBaseResponse, error)
+	// Taks
+	CreateTask(context.Context, *task.CreateTaskRequest) (*task.TaskBaseResponse, error)
+	GetTask(context.Context, *task.GetTaskByIDRequest) (*task.GetTaskByIDResponse, error)
+	GetAllTask(context.Context, *task.GetAllTaskByActivityIDRequest) (*task.GetAllTaskByActivityIDResponse, error)
+	UpdateTask(context.Context, *task.UpdateTaskByIDRequest) (*task.TaskBaseResponse, error)
+	BatchUpdateTask(context.Context, *task.BatchUpdateTaskRequest) (*task.TaskBaseResponse, error)
+	DeleteTask(context.Context, *task.DeleteTaskByIDRequest) (*task.TaskBaseResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -358,74 +224,44 @@ type AuthServiceServer interface {
 type UnimplementedAuthServiceServer struct {
 }
 
-func (UnimplementedAuthServiceServer) Verify(context.Context, *emptypb.Empty) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Verify not implemented")
+func (UnimplementedAuthServiceServer) Login(context.Context, *LoginRequest) (*AuthBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedAuthServiceServer) LoginAdmin(context.Context, *LoginRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoginAdmin not implemented")
-}
-func (UnimplementedAuthServiceServer) LoginCustomer(context.Context, *LoginRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoginCustomer not implemented")
-}
-func (UnimplementedAuthServiceServer) LoginCommittee(context.Context, *LoginRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoginCommittee not implemented")
-}
-func (UnimplementedAuthServiceServer) RefreshToken(context.Context, *RefreshTokenRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RefreshToken not implemented")
-}
-func (UnimplementedAuthServiceServer) Logout(context.Context, *LogoutRequest) (*AuthBaseResponse, error) {
+func (UnimplementedAuthServiceServer) Logout(context.Context, *emptypb.Empty) (*AuthBaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
 }
-func (UnimplementedAuthServiceServer) CreateUser(context.Context, *CreateUserRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+func (UnimplementedAuthServiceServer) CreateActivity(context.Context, *activity.CreateActivityRequest) (*activity.ActivityBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateActivity not implemented")
 }
-func (UnimplementedAuthServiceServer) GetAllUser(context.Context, *GetAllUserRequest) (*GetAllUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAllUser not implemented")
+func (UnimplementedAuthServiceServer) GetActivity(context.Context, *activity.GetActivityByIDRequest) (*activity.ActivityBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetActivity not implemented")
 }
-func (UnimplementedAuthServiceServer) GetUserByID(context.Context, *GetUserByIDRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
+func (UnimplementedAuthServiceServer) GetAllActivity(context.Context, *activity.GetAllActivityRequest) (*activity.GetAllActivityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllActivity not implemented")
 }
-func (UnimplementedAuthServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
+func (UnimplementedAuthServiceServer) UpdateActivity(context.Context, *activity.UpdateActivityByIDRequest) (*activity.ActivityBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateActivity not implemented")
 }
-func (UnimplementedAuthServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+func (UnimplementedAuthServiceServer) DeleteActivity(context.Context, *activity.DeleteActivityByIDRequest) (*activity.ActivityBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteActivity not implemented")
 }
-func (UnimplementedAuthServiceServer) GetProfile(context.Context, *emptypb.Empty) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProfile not implemented")
+func (UnimplementedAuthServiceServer) CreateTask(context.Context, *task.CreateTaskRequest) (*task.TaskBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTask not implemented")
 }
-func (UnimplementedAuthServiceServer) ChangePassword(context.Context, *ChangePasswordRequest) (*AuthBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
+func (UnimplementedAuthServiceServer) GetTask(context.Context, *task.GetTaskByIDRequest) (*task.GetTaskByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTask not implemented")
 }
-func (UnimplementedAuthServiceServer) CreateSocial(context.Context, *social.CreateSocialRequest) (*social.SocialBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSocial not implemented")
+func (UnimplementedAuthServiceServer) GetAllTask(context.Context, *task.GetAllTaskByActivityIDRequest) (*task.GetAllTaskByActivityIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllTask not implemented")
 }
-func (UnimplementedAuthServiceServer) GetSocial(context.Context, *social.GetSocialByIDRequest) (*social.SocialBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSocial not implemented")
+func (UnimplementedAuthServiceServer) UpdateTask(context.Context, *task.UpdateTaskByIDRequest) (*task.TaskBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTask not implemented")
 }
-func (UnimplementedAuthServiceServer) GetAllSocial(context.Context, *social.GetAllSocialRequest) (*social.GetAllSocialResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAllSocial not implemented")
+func (UnimplementedAuthServiceServer) BatchUpdateTask(context.Context, *task.BatchUpdateTaskRequest) (*task.TaskBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchUpdateTask not implemented")
 }
-func (UnimplementedAuthServiceServer) UpdateSocial(context.Context, *social.UpdateSocialByIDRequest) (*social.SocialBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSocial not implemented")
-}
-func (UnimplementedAuthServiceServer) DeleteSocial(context.Context, *social.DeleteSocialByIDRequest) (*social.SocialBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteSocial not implemented")
-}
-func (UnimplementedAuthServiceServer) CreateInvitationCategory(context.Context, *invitation_category.CreateInvitationCategoryRequest) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateInvitationCategory not implemented")
-}
-func (UnimplementedAuthServiceServer) GetInvitationCategory(context.Context, *invitation_category.GetInvitationCategoryByIDRequest) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetInvitationCategory not implemented")
-}
-func (UnimplementedAuthServiceServer) GetAllInvitationCategory(context.Context, *invitation_category.GetAllInvitationCategoryRequest) (*invitation_category.GetAllInvitationCategoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAllInvitationCategory not implemented")
-}
-func (UnimplementedAuthServiceServer) UpdateInvitationCategory(context.Context, *invitation_category.UpdateInvitationCategoryByIDRequest) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateInvitationCategory not implemented")
-}
-func (UnimplementedAuthServiceServer) DeleteInvitationCategory(context.Context, *invitation_category.DeleteInvitationCategoryByIDRequest) (*invitation_category.InvitationCategoryBaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteInvitationCategory not implemented")
+func (UnimplementedAuthServiceServer) DeleteTask(context.Context, *task.DeleteTaskByIDRequest) (*task.TaskBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTask not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 
@@ -440,98 +276,26 @@ func RegisterAuthServiceServer(s grpc.ServiceRegistrar, srv AuthServiceServer) {
 	s.RegisterService(&AuthService_ServiceDesc, srv)
 }
 
-func _AuthService_Verify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).Verify(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_Verify_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).Verify(ctx, req.(*emptypb.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_LoginAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AuthService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).LoginAdmin(ctx, in)
+		return srv.(AuthServiceServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_LoginAdmin_FullMethodName,
+		FullMethod: AuthService_Login_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).LoginAdmin(ctx, req.(*LoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_LoginCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).LoginCustomer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_LoginCustomer_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).LoginCustomer(ctx, req.(*LoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_LoginCommittee_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).LoginCommittee(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_LoginCommittee_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).LoginCommittee(ctx, req.(*LoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_RefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RefreshTokenRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).RefreshToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_RefreshToken_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).RefreshToken(ctx, req.(*RefreshTokenRequest))
+		return srv.(AuthServiceServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AuthService_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LogoutRequest)
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -543,313 +307,205 @@ func _AuthService_Logout_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: AuthService_Logout_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).Logout(ctx, req.(*LogoutRequest))
+		return srv.(AuthServiceServer).Logout(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateUserRequest)
+func _AuthService_CreateActivity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(activity.CreateActivityRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).CreateUser(ctx, in)
+		return srv.(AuthServiceServer).CreateActivity(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_CreateUser_FullMethodName,
+		FullMethod: AuthService_CreateActivity_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).CreateUser(ctx, req.(*CreateUserRequest))
+		return srv.(AuthServiceServer).CreateActivity(ctx, req.(*activity.CreateActivityRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_GetAllUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAllUserRequest)
+func _AuthService_GetActivity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(activity.GetActivityByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).GetAllUser(ctx, in)
+		return srv.(AuthServiceServer).GetActivity(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_GetAllUser_FullMethodName,
+		FullMethod: AuthService_GetActivity_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetAllUser(ctx, req.(*GetAllUserRequest))
+		return srv.(AuthServiceServer).GetActivity(ctx, req.(*activity.GetActivityByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserByIDRequest)
+func _AuthService_GetAllActivity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(activity.GetAllActivityRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).GetUserByID(ctx, in)
+		return srv.(AuthServiceServer).GetAllActivity(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_GetUserByID_FullMethodName,
+		FullMethod: AuthService_GetAllActivity_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetUserByID(ctx, req.(*GetUserByIDRequest))
+		return srv.(AuthServiceServer).GetAllActivity(ctx, req.(*activity.GetAllActivityRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateUserRequest)
+func _AuthService_UpdateActivity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(activity.UpdateActivityByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).UpdateUser(ctx, in)
+		return srv.(AuthServiceServer).UpdateActivity(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_UpdateUser_FullMethodName,
+		FullMethod: AuthService_UpdateActivity_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).UpdateUser(ctx, req.(*UpdateUserRequest))
+		return srv.(AuthServiceServer).UpdateActivity(ctx, req.(*activity.UpdateActivityByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteUserRequest)
+func _AuthService_DeleteActivity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(activity.DeleteActivityByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).DeleteUser(ctx, in)
+		return srv.(AuthServiceServer).DeleteActivity(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_DeleteUser_FullMethodName,
+		FullMethod: AuthService_DeleteActivity_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).DeleteUser(ctx, req.(*DeleteUserRequest))
+		return srv.(AuthServiceServer).DeleteActivity(ctx, req.(*activity.DeleteActivityByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_GetProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+func _AuthService_CreateTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(task.CreateTaskRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).GetProfile(ctx, in)
+		return srv.(AuthServiceServer).CreateTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_GetProfile_FullMethodName,
+		FullMethod: AuthService_CreateTask_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetProfile(ctx, req.(*emptypb.Empty))
+		return srv.(AuthServiceServer).CreateTask(ctx, req.(*task.CreateTaskRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChangePasswordRequest)
+func _AuthService_GetTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(task.GetTaskByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).ChangePassword(ctx, in)
+		return srv.(AuthServiceServer).GetTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_ChangePassword_FullMethodName,
+		FullMethod: AuthService_GetTask_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+		return srv.(AuthServiceServer).GetTask(ctx, req.(*task.GetTaskByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_CreateSocial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(social.CreateSocialRequest)
+func _AuthService_GetAllTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(task.GetAllTaskByActivityIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).CreateSocial(ctx, in)
+		return srv.(AuthServiceServer).GetAllTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_CreateSocial_FullMethodName,
+		FullMethod: AuthService_GetAllTask_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).CreateSocial(ctx, req.(*social.CreateSocialRequest))
+		return srv.(AuthServiceServer).GetAllTask(ctx, req.(*task.GetAllTaskByActivityIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_GetSocial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(social.GetSocialByIDRequest)
+func _AuthService_UpdateTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(task.UpdateTaskByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).GetSocial(ctx, in)
+		return srv.(AuthServiceServer).UpdateTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_GetSocial_FullMethodName,
+		FullMethod: AuthService_UpdateTask_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetSocial(ctx, req.(*social.GetSocialByIDRequest))
+		return srv.(AuthServiceServer).UpdateTask(ctx, req.(*task.UpdateTaskByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_GetAllSocial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(social.GetAllSocialRequest)
+func _AuthService_BatchUpdateTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(task.BatchUpdateTaskRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).GetAllSocial(ctx, in)
+		return srv.(AuthServiceServer).BatchUpdateTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_GetAllSocial_FullMethodName,
+		FullMethod: AuthService_BatchUpdateTask_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetAllSocial(ctx, req.(*social.GetAllSocialRequest))
+		return srv.(AuthServiceServer).BatchUpdateTask(ctx, req.(*task.BatchUpdateTaskRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_UpdateSocial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(social.UpdateSocialByIDRequest)
+func _AuthService_DeleteTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(task.DeleteTaskByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServiceServer).UpdateSocial(ctx, in)
+		return srv.(AuthServiceServer).DeleteTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AuthService_UpdateSocial_FullMethodName,
+		FullMethod: AuthService_DeleteTask_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).UpdateSocial(ctx, req.(*social.UpdateSocialByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_DeleteSocial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(social.DeleteSocialByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).DeleteSocial(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_DeleteSocial_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).DeleteSocial(ctx, req.(*social.DeleteSocialByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_CreateInvitationCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(invitation_category.CreateInvitationCategoryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).CreateInvitationCategory(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_CreateInvitationCategory_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).CreateInvitationCategory(ctx, req.(*invitation_category.CreateInvitationCategoryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_GetInvitationCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(invitation_category.GetInvitationCategoryByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).GetInvitationCategory(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_GetInvitationCategory_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetInvitationCategory(ctx, req.(*invitation_category.GetInvitationCategoryByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_GetAllInvitationCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(invitation_category.GetAllInvitationCategoryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).GetAllInvitationCategory(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_GetAllInvitationCategory_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetAllInvitationCategory(ctx, req.(*invitation_category.GetAllInvitationCategoryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_UpdateInvitationCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(invitation_category.UpdateInvitationCategoryByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).UpdateInvitationCategory(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_UpdateInvitationCategory_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).UpdateInvitationCategory(ctx, req.(*invitation_category.UpdateInvitationCategoryByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthService_DeleteInvitationCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(invitation_category.DeleteInvitationCategoryByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).DeleteInvitationCategory(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthService_DeleteInvitationCategory_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).DeleteInvitationCategory(ctx, req.(*invitation_category.DeleteInvitationCategoryByIDRequest))
+		return srv.(AuthServiceServer).DeleteTask(ctx, req.(*task.DeleteTaskByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -862,96 +518,56 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Verify",
-			Handler:    _AuthService_Verify_Handler,
-		},
-		{
-			MethodName: "LoginAdmin",
-			Handler:    _AuthService_LoginAdmin_Handler,
-		},
-		{
-			MethodName: "LoginCustomer",
-			Handler:    _AuthService_LoginCustomer_Handler,
-		},
-		{
-			MethodName: "LoginCommittee",
-			Handler:    _AuthService_LoginCommittee_Handler,
-		},
-		{
-			MethodName: "RefreshToken",
-			Handler:    _AuthService_RefreshToken_Handler,
+			MethodName: "Login",
+			Handler:    _AuthService_Login_Handler,
 		},
 		{
 			MethodName: "Logout",
 			Handler:    _AuthService_Logout_Handler,
 		},
 		{
-			MethodName: "CreateUser",
-			Handler:    _AuthService_CreateUser_Handler,
+			MethodName: "CreateActivity",
+			Handler:    _AuthService_CreateActivity_Handler,
 		},
 		{
-			MethodName: "GetAllUser",
-			Handler:    _AuthService_GetAllUser_Handler,
+			MethodName: "GetActivity",
+			Handler:    _AuthService_GetActivity_Handler,
 		},
 		{
-			MethodName: "GetUserByID",
-			Handler:    _AuthService_GetUserByID_Handler,
+			MethodName: "GetAllActivity",
+			Handler:    _AuthService_GetAllActivity_Handler,
 		},
 		{
-			MethodName: "UpdateUser",
-			Handler:    _AuthService_UpdateUser_Handler,
+			MethodName: "UpdateActivity",
+			Handler:    _AuthService_UpdateActivity_Handler,
 		},
 		{
-			MethodName: "DeleteUser",
-			Handler:    _AuthService_DeleteUser_Handler,
+			MethodName: "DeleteActivity",
+			Handler:    _AuthService_DeleteActivity_Handler,
 		},
 		{
-			MethodName: "GetProfile",
-			Handler:    _AuthService_GetProfile_Handler,
+			MethodName: "CreateTask",
+			Handler:    _AuthService_CreateTask_Handler,
 		},
 		{
-			MethodName: "ChangePassword",
-			Handler:    _AuthService_ChangePassword_Handler,
+			MethodName: "GetTask",
+			Handler:    _AuthService_GetTask_Handler,
 		},
 		{
-			MethodName: "CreateSocial",
-			Handler:    _AuthService_CreateSocial_Handler,
+			MethodName: "GetAllTask",
+			Handler:    _AuthService_GetAllTask_Handler,
 		},
 		{
-			MethodName: "GetSocial",
-			Handler:    _AuthService_GetSocial_Handler,
+			MethodName: "UpdateTask",
+			Handler:    _AuthService_UpdateTask_Handler,
 		},
 		{
-			MethodName: "GetAllSocial",
-			Handler:    _AuthService_GetAllSocial_Handler,
+			MethodName: "BatchUpdateTask",
+			Handler:    _AuthService_BatchUpdateTask_Handler,
 		},
 		{
-			MethodName: "UpdateSocial",
-			Handler:    _AuthService_UpdateSocial_Handler,
-		},
-		{
-			MethodName: "DeleteSocial",
-			Handler:    _AuthService_DeleteSocial_Handler,
-		},
-		{
-			MethodName: "CreateInvitationCategory",
-			Handler:    _AuthService_CreateInvitationCategory_Handler,
-		},
-		{
-			MethodName: "GetInvitationCategory",
-			Handler:    _AuthService_GetInvitationCategory_Handler,
-		},
-		{
-			MethodName: "GetAllInvitationCategory",
-			Handler:    _AuthService_GetAllInvitationCategory_Handler,
-		},
-		{
-			MethodName: "UpdateInvitationCategory",
-			Handler:    _AuthService_UpdateInvitationCategory_Handler,
-		},
-		{
-			MethodName: "DeleteInvitationCategory",
-			Handler:    _AuthService_DeleteInvitationCategory_Handler,
+			MethodName: "DeleteTask",
+			Handler:    _AuthService_DeleteTask_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

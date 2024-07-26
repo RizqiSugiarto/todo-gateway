@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/digisata/auth-service/api"
-	"github.com/digisata/auth-service/bootstrap"
-	"github.com/digisata/auth-service/docs"
-	"github.com/digisata/auth-service/pkg/middleware"
+	"github.com/digisata/todo-gateway/api"
+	"github.com/digisata/todo-gateway/bootstrap"
+	"github.com/digisata/todo-gateway/docs"
+	"github.com/digisata/todo-gateway/pkg/middleware"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/pkg/errors"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -90,7 +90,7 @@ func (gw *Gateway) Run(ctx context.Context, cfg *bootstrap.Config) error {
 	gwServer := &http.Server{
 		Addr: fmt.Sprintf(":%d", gw.Port),
 		Handler: middleware.CORS(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-			if strings.HasPrefix(request.URL.Path, "/auth-service/api/v1") {
+			if strings.HasPrefix(request.URL.Path, "/todo-gateway/api/v1") {
 				gw.ServeMux.ServeHTTP(writer, request)
 				return
 			}

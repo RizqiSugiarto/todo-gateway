@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	domain "github.com/digisata/auth-service/domain"
+	domain "github.com/digisata/todo-gateway/domain"
 	mock "github.com/stretchr/testify/mock"
 )
 

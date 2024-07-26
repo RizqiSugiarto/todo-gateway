@@ -2,8 +2,8 @@ package repository
 
 import (
 	"github.com/bradfitz/gomemcache/memcache"
-	"github.com/digisata/auth-service/domain"
-	"github.com/digisata/auth-service/pkg/memcached"
+	"github.com/digisata/todo-gateway/domain"
+	"github.com/digisata/todo-gateway/pkg/memcached"
 )
 
 type CacheRepository struct {

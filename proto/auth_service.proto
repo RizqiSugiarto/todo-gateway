@@ -5,8 +5,8 @@ package proto;
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "payload_messages.proto";
-import "social/payload_messages.proto";
-import "invitation-category/payload_messages.proto";
+import "activity/payload_messages.proto";
+import "task/payload_messages.proto";
 import "google/protobuf/empty.proto";
 
 option go_package = "./stubs";
@@ -29,7 +29,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
       }
   }
   info: {
-    title: "Auth Service",
+    title: "Todo Gateway",
     version: "v1.0.0"
   }
   consumes: "application/json"
@@ -38,72 +38,22 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 
 service AuthService {
   // Auth
-  rpc Verify (google.protobuf.Empty) returns (AuthBaseResponse) {
+  rpc Login (LoginRequest) returns (AuthBaseResponse) {
     option (google.api.http) = {
-      get: "/auth-service/api/v1/auth/verify",
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Auth"]
-        summary: "Verify request"
-        description: "This API for verify request"
-    };
-  }
-
-  rpc LoginAdmin (LoginRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      post: "/auth-service/api/v1/auth/login-admin",
+      post: "/todo-gateway/api/v1/auth/login",
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         security: {}
         tags: ["Auth"]
-        summary: "Admin login"
-        description: "This API for admin login"
+        summary: "login"
+        description: "This API for login"
     };
   }
 
-  rpc LoginCustomer (LoginRequest) returns (AuthBaseResponse) {
+  rpc Logout (google.protobuf.Empty) returns (AuthBaseResponse) {
     option (google.api.http) = {
-      post: "/auth-service/api/v1/auth/login-customer",
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        security: {}
-        tags: ["Auth"]
-        summary: "Customer login"
-        description: "This API for customer login"
-    };
-  }
-
-  rpc LoginCommittee (LoginRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      post: "/auth-service/api/v1/auth/login-committee",
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        security: {}
-        tags: ["Auth"]
-        summary: "Committee login"
-        description: "This API for committee login"
-    };
-  }
-
-  rpc RefreshToken (RefreshTokenRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      post: "/auth-service/api/v1/auth/refresh-token",
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Auth"]
-        summary: "Refresh token"
-        description: "This API for refresh token"
-    };
-  }
-
-  rpc Logout (LogoutRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      post: "/auth-service/api/v1/auth/logout",
-      body: "*"
+      post: "/todo-gateway/api/v1/auth/logout",
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         tags: ["Auth"]
@@ -112,201 +62,131 @@ service AuthService {
     };
   }
 
-  // Users
-  rpc CreateUser (CreateUserRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      post: "/auth-service/api/v1/users",
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Users"]
-        summary: "Create user"
-        description: "This API for create user"
-    };
-  }
-
-  rpc GetAllUser (GetAllUserRequest) returns (GetAllUserResponse) {
-    option (google.api.http) = {
-      get: "/auth-service/api/v1/users",
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Users"]
-        summary: "Get all user"
-        description: "This API for get all user"
-    };
-  }
-
-  rpc GetUserByID (GetUserByIDRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      get: "/auth-service/api/v1/users/{id}",
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Users"]
-        summary: "Get user by id"
-        description: "This API for get user by id"
-    };
-  }
-
-  rpc UpdateUser (UpdateUserRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      patch: "/auth-service/api/v1/users/{id}",
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Users"]
-        summary: "Update user by id"
-        description: "This API for update user by id"
-    };
-  }
-
-  rpc DeleteUser (DeleteUserRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      delete: "/auth-service/api/v1/users/{id}",
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Users"]
-        summary: "Delete user by id"
-        description: "This API for delete user by id"
-    };
-  }
-
-  // Profiles
-  rpc GetProfile (google.protobuf.Empty) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      get: "/auth-service/api/v1/profiles",
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Profiles"]
-        summary: "Get profile"
-        description: "This API for get profile"
-    };
-  }
-
-  rpc ChangePassword (ChangePasswordRequest) returns (AuthBaseResponse) {
-    option (google.api.http) = {
-      put: "/auth-service/api/v1/profiles/change-password",
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: ["Profiles"]
-        summary: "Change password"
-        description: "This API for change password"
-    };
-  }
-    
-  // Socials
-  rpc CreateSocial(CreateSocialRequest) returns (SocialBaseResponse) {
+  // Activities
+  rpc CreateActivity(CreateActivityRequest) returns (ActivityBaseResponse) {
       option (google.api.http) = {
-          post: "/auth-service/api/v1/socials",
+          post: "/todo-gateway/api/v1/activities",
           body: "*"
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Socials"]
-          summary: "Create social"
-          description: "This API for create social"
+          tags: ["Activities"]
+          summary: "Create activity"
+          description: "This API for create activity"
       };
   };
 
-  rpc GetSocial(GetSocialByIDRequest) returns (SocialBaseResponse) {
+  rpc GetActivity(GetActivityByIDRequest) returns (ActivityBaseResponse) {
       option (google.api.http) = {
-          get: "/auth-service/api/v1/socials/{id}",
+          get: "/todo-gateway/api/v1/activities/{id}",
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Socials"]
-          summary: "Get social by id"
-          description: "This API for get social by id"
+          tags: ["Activities"]
+          summary: "Get activity by id"
+          description: "This API for get activity by id"
       };
   };
 
-  rpc GetAllSocial(GetAllSocialRequest)returns (GetAllSocialResponse) {
+  rpc GetAllActivity(GetAllActivityRequest)returns (GetAllActivityResponse) {
       option (google.api.http) = {
-          get: "/auth-service/api/v1/socials",
+          get: "/todo-gateway/api/v1/activities",
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Socials"]
-          summary: "Get all social"
-          description: "This API for get all social"
+          tags: ["Activities"]
+          summary: "Get all activity"
+          description: "This API for get all activity"
       };
   };
 
-  rpc UpdateSocial(UpdateSocialByIDRequest) returns (SocialBaseResponse) {
+  rpc UpdateActivity(UpdateActivityByIDRequest) returns (ActivityBaseResponse) {
       option (google.api.http) = {
-          patch: "/auth-service/api/v1/socials/{id}",
+          patch: "/todo-gateway/api/v1/activities/{id}",
           body: "*"
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Socials"]
-          summary: "Update social by id"
-          description: "This API for update social by id"
+          tags: ["Activities"]
+          summary: "Update activity by id"
+          description: "This API for update activity by id"
       };
   };
 
-  rpc DeleteSocial(DeleteSocialByIDRequest) returns (SocialBaseResponse) {
+  rpc DeleteActivity(DeleteActivityByIDRequest) returns (ActivityBaseResponse) {
       option (google.api.http) = {
-          delete: "/auth-service/api/v1/socials/{id}",
+          delete: "/todo-gateway/api/v1/activities/{id}",
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Socials"]
-          summary: "Delete social by id"
-          description: "This API for delete social by id"
+          tags: ["Activities"]
+          summary: "Delete activity by id"
+          description: "This API for delete activity by id"
       };
   };
 
-  // Invitation Categories
-  rpc CreateInvitationCategory(CreateInvitationCategoryRequest) returns (InvitationCategoryBaseResponse) {
+  // Taks
+  rpc CreateTask(CreateTaskRequest) returns (TaskBaseResponse) {
       option (google.api.http) = {
-          post: "/auth-service/api/v1/invitation-categories",
+          post: "/todo-gateway/api/v1/tasks",
           body: "*"
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Invitation Categories"]
-          summary: "Create invitation category"
-          description: "This API for create invitation category"
+          tags: ["Tasks"]
+          summary: "Create task"
+          description: "This API for create task"
       };
   };
 
-  rpc GetInvitationCategory(GetInvitationCategoryByIDRequest) returns (InvitationCategoryBaseResponse) {
+  rpc GetTask(GetTaskByIDRequest) returns (GetTaskByIDResponse) {
       option (google.api.http) = {
-          get: "/auth-service/api/v1/invitation-categories/{id}",
+          get: "/todo-gateway/api/v1/tasks/{id}",
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Invitation Categories"]
-          summary: "Get invitation category by id"
-          description: "This API for get invitation category by id"
+          tags: ["Tasks"]
+          summary: "Get task by id"
+          description: "This API for get task by id"
       };
   };
 
-  rpc GetAllInvitationCategory(GetAllInvitationCategoryRequest)returns (GetAllInvitationCategoryResponse) {
+  rpc GetAllTask(GetAllTaskByActivityIDRequest)returns (GetAllTaskByActivityIDResponse) {
       option (google.api.http) = {
-          get: "/auth-service/api/v1/invitation-categories",
+          get: "/todo-gateway/api/v1/tasks",
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Invitation Categories"]
-          summary: "Get all invitation category"
-          description: "This API for get all invitation category"
+          tags: ["Tasks"]
+          summary: "Get all task"
+          description: "This API for get all task"
       };
   };
 
-  rpc UpdateInvitationCategory(UpdateInvitationCategoryByIDRequest) returns (InvitationCategoryBaseResponse) {
+  rpc UpdateTask(UpdateTaskByIDRequest) returns (TaskBaseResponse) {
       option (google.api.http) = {
-          patch: "/auth-service/api/v1/invitation-categories/{id}",
+          patch: "/todo-gateway/api/v1/tasks/{id}",
           body: "*"
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Invitation Categories"]
-          summary: "Update invitation category by id"
-          description: "This API for update invitation category by id"
+          tags: ["Tasks"]
+          summary: "Update task by id"
+          description: "This API for update task by id"
       };
   };
 
-  rpc DeleteInvitationCategory(DeleteInvitationCategoryByIDRequest) returns (InvitationCategoryBaseResponse) {
+  rpc BatchUpdateTask(BatchUpdateTaskRequest) returns (TaskBaseResponse) {
       option (google.api.http) = {
-          delete: "/auth-service/api/v1/invitation-categories/{id}",
+          patch: "/todo-gateway/api/v1/tasks/batch",
+          body: "*"
       };
       option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-          tags: ["Invitation Categories"]
-          summary: "Delete invitation category by id"
-          description: "This API for delete invitation category by id"
+          tags: ["Tasks"]
+          summary: "Batch update task"
+          description: "This API for batch update task"
+      };
+  };
+
+  rpc DeleteTask(DeleteTaskByIDRequest) returns (TaskBaseResponse) {
+      option (google.api.http) = {
+          delete: "/todo-gateway/api/v1/tasks/{id}",
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+          tags: ["Tasks"]
+          summary: "Delete task by id"
+          description: "This API for delete task by id"
       };
   };
 }

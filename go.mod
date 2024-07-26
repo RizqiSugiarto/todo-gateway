@@ -1,4 +1,4 @@
-module github.com/digisata/auth-service
+module github.com/digisata/todo-gateway
 
 go 1.22
 

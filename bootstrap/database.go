@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/digisata/auth-service/pkg/mongo"
+	"github.com/digisata/todo-gateway/pkg/mongo"
 )
 
 func NewMongoDatabase(cfg *Config) (mongo.Client, error) {

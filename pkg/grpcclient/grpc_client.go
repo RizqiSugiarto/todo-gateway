@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/digisata/auth-service/pkg/interceptors"
+	"github.com/digisata/todo-gateway/pkg/interceptors"
 	grpcMiddleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpcRetry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	"github.com/pkg/errors"

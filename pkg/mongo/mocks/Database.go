@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	mongo "github.com/digisata/auth-service/pkg/mongo"
+	mongo "github.com/digisata/todo-gateway/pkg/mongo"
 	mock "github.com/stretchr/testify/mock"
 )
 

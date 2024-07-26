@@ -10,8 +10,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/digisata/auth-service/pkg/constants"
-	"github.com/digisata/auth-service/pkg/interceptors"
+	"github.com/digisata/todo-gateway/pkg/constants"
+	"github.com/digisata/todo-gateway/pkg/interceptors"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -109,7 +109,6 @@ func NewGrpcServer(cfg Config, im interceptors.InterceptorManager, logger *zap.S
 			grpcRecovery.UnaryServerInterceptor(),
 			im.Logger,
 			im.AuthenticationInterceptor,
-			im.AuthorizationInterceptor,
 		)),
 	)
 

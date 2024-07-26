@@ -1,8 +1,8 @@
 package bootstrap
 
 import (
-	"github.com/digisata/auth-service/pkg/memcached"
-	"github.com/digisata/auth-service/pkg/mongo"
+	"github.com/digisata/todo-gateway/pkg/memcached"
+	"github.com/digisata/todo-gateway/pkg/mongo"
 )
 
 type Application struct {

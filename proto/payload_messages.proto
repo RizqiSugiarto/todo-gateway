@@ -19,13 +19,6 @@ message AuthBaseResponse {
 }
 
 // Auth
-message VerifyResponse {
-    string name = 1 [json_name = "name"];
-    string id = 2 [json_name = "id"];
-    int32 role = 3 [json_name = "role"];
-    optional string customer_id = 4 [json_name = "customer_id"];
-}
-
 message LoginRequest {
     string email = 1 [json_name = "email"];
     string password = 2 [json_name = "password"];
@@ -33,85 +26,4 @@ message LoginRequest {
 
 message LoginResponse {
     string access_token = 1 [json_name = "access_token"];
-    string refresh_token = 2 [json_name = "refresh_token"];
-}
-
-message RefreshTokenRequest {
-    string refresh_token = 1 [json_name = "refresh_token"];
-}
-
-message RefreshTokenResponse {
-    string access_token = 1 [json_name = "access_token"];
-}
-
-message LogoutRequest {
-    string refresh_token = 1 [json_name = "refresh_token"];
-}
-
-// Users
-message CreateUserRequest {
-    optional string customer_id = 1 [json_name = "customer_id"];
-    string name = 2 [json_name = "name"];
-    int32 role = 3 [json_name = "role"];
-    string email = 4 [json_name = "email"];
-    string password = 5 [json_name = "password"];
-    bool is_active = 6 [json_name = "is_active"];
-    optional string note = 7 [json_name = "note"];
-}
-
-message GetAllUserRequest {
-    optional string search = 1 [json_name = "search"];
-    optional bool is_active = 2 [json_name = "is_active"];
-    optional int32 role = 3 [json_name = "role"];
-}
-
-message GetAllUserResponse {
-    string message = 1 [json_name = "message"];
-    repeated GetUserByIDResponse data = 2 [json_name = "data"];
-    Paging paging = 3 [json_name = "paging"];
-}
-
-message GetUserByIDRequest {
-    string id = 1 [json_name = "id"];
-}
-
-message GetUserByIDResponse {
-    string id = 1 [json_name = "id"];
-    optional string customer_id = 2 [json_name = "customer_id"];
-    string name = 3 [json_name = "name"];
-    string email = 4 [json_name = "email"];
-    int32 role = 5 [json_name = "role"];
-    bool is_active = 6 [json_name = "is_active"];
-    optional string note = 7 [json_name = "note"];
-    int32 created_at = 8 [json_name = "created_at"];
-    int32 updated_at = 9 [json_name = "updated_at"];
-    int32 deleted_at = 10 [json_name = "deleted_at"];
-}
-
-message UpdateUserRequest {
-    string id = 1 [json_name = "id"];
-    optional string customer_id = 2 [json_name = "customer_id"];
-    optional string name = 3 [json_name = "name"];
-    optional bool is_active = 4 [json_name = "is_active"];
-    optional string note = 5 [json_name = "note"];
-}
-
-message DeleteUserRequest {
-    string id = 1 [json_name = "id"];
-}
-
-// Profiles
-message GetProfileResponse {
-    string id = 1 [json_name = "id"];
-    optional string customer_id = 2 [json_name = "customer_id"];
-    string name = 3 [json_name = "name"];
-    string email = 4 [json_name = "email"];
-    int32 created_at = 5 [json_name = "created_at"];
-    int32 updated_at = 6 [json_name = "updated_at"];
-    int32 deleted_at = 7 [json_name = "deleted_at"];
-}
-
-message ChangePasswordRequest {
-    string old_password = 1 [json_name = "old_password"];
-    string new_password = 2 [json_name = "new_password"];
 }

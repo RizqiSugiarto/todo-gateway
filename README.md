@@ -1,4 +1,4 @@
-# Auth Service
+# Todo Gateway
 >
 > A simple RESTFUL API that provides endpoints for admin dashboard.
 

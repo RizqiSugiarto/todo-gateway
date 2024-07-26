@@ -1,7 +1,6 @@
 app_env: local
 allowed_origins:
-preference_service: true
-invitation_service: true
+todo_service: true
 host: localhost
 port: 8110
 context_timeout: 2
@@ -11,7 +10,7 @@ mongo:
   db_port: 27017
   db_user: user
   db_pass: pass
-  db_name: auth-service
+  db_name: todo-gateway
 
 memcached:
   db_host: localhost
@@ -19,9 +18,7 @@ memcached:
 
 jwt:
   access_token_expiry_minute: 5
-  refresh_token_expiry_minute: 10
   access_token_secret: access_token_secret
-  refresh_token_secret: refresh_token_secret
 
 grpc_server:
   network: tcp
@@ -34,11 +31,7 @@ grpc_client:
     host: localhost
     port: 9000
     tls: false
-  preference_service:
-    host: localhost
-    port: 9050
-    tls: false
-  invitation_service:
+  todo_service:
     host: localhost
     port: 9100
     tls: false

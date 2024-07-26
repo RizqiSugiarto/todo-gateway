@@ -4,34 +4,32 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/digisata/auth-service/pkg/grpcclient"
-	"github.com/digisata/auth-service/pkg/grpcserver"
-	"github.com/digisata/auth-service/pkg/jwtio"
-	"github.com/digisata/auth-service/pkg/memcached"
-	"github.com/digisata/auth-service/pkg/mongo"
+	"github.com/digisata/todo-gateway/pkg/grpcclient"
+	"github.com/digisata/todo-gateway/pkg/grpcserver"
+	"github.com/digisata/todo-gateway/pkg/jwtio"
+	"github.com/digisata/todo-gateway/pkg/memcached"
+	"github.com/digisata/todo-gateway/pkg/mongo"
 	"github.com/spf13/viper"
 )
 
 type (
 	Config struct {
-		AppEnv            string            `mapstructure:"app_env"`
-		AllowedOrigins    string            `mapstructure:"allowed_origins"`
-		PreferenceService bool              `mapstructure:"preference_service"`
-		InvitationService bool              `mapstructure:"invitation_service"`
-		Host              string            `mapstructure:"host"`
-		Port              int               `mapstructure:"port"`
-		ContextTimeout    int               `mapstructure:"context_timeout"`
-		Jwt               jwtio.Config      `mapstructure:"jwt"`
-		Mongo             mongo.Config      `mapstructure:"mongo"`
-		Memcached         memcached.Config  `mapstructure:"memcached"`
-		GrpcServer        grpcserver.Config `mapstructure:"grpc_server"`
-		GRPCClient        GRPCClient        `mapstructure:"grpc_client"`
+		AppEnv         string            `mapstructure:"app_env"`
+		AllowedOrigins string            `mapstructure:"allowed_origins"`
+		TodoService    bool              `mapstructure:"todo_service"`
+		Host           string            `mapstructure:"host"`
+		Port           int               `mapstructure:"port"`
+		ContextTimeout int               `mapstructure:"context_timeout"`
+		Jwt            jwtio.Config      `mapstructure:"jwt"`
+		Mongo          mongo.Config      `mapstructure:"mongo"`
+		Memcached      memcached.Config  `mapstructure:"memcached"`
+		GrpcServer     grpcserver.Config `mapstructure:"grpc_server"`
+		GRPCClient     GRPCClient        `mapstructure:"grpc_client"`
 	}
 
 	GRPCClient struct {
-		AuthService       grpcclient.Config `mapstructure:"auth_service"`
-		PreferenceService grpcclient.Config `mapstructure:"preference_service"`
-		InvitationService grpcclient.Config `mapstructure:"invitation_service"`
+		AuthService grpcclient.Config `mapstructure:"auth_service"`
+		TodoService grpcclient.Config `mapstructure:"todo_service"`
 	}
 )
 
