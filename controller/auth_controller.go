@@ -7,6 +7,7 @@ import (
 	"github.com/digisata/todo-gateway/stubs"
 	activityPB "github.com/digisata/todo-gateway/stubs/activity"
 	taskPB "github.com/digisata/todo-gateway/stubs/task"
+	textPB "github.com/digisata/todo-gateway/stubs/text"
 	"github.com/digisata/todo-gateway/usecase"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -19,6 +20,7 @@ type AuthController struct {
 	UserUseCase     UserUseCase
 	TaskUseCase     taskPB.TaskServiceClient
 	ActivityUseCase activityPB.ActivityServiceClient
+	TextUseCase     textPB.TextServiceClient
 }
 
 var _ UserUseCase = (*usecase.UserUseCase)(nil)

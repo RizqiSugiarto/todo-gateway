@@ -17,6 +17,7 @@ import (
 	stubs "github.com/digisata/todo-gateway/stubs"
 	activityPB "github.com/digisata/todo-gateway/stubs/activity"
 	taskPB "github.com/digisata/todo-gateway/stubs/task"
+	textPB "github.com/digisata/todo-gateway/stubs/text"
 	"github.com/digisata/todo-gateway/usecase"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -88,6 +89,7 @@ func main() {
 
 	authController.ActivityUseCase = activityPB.NewActivityServiceClient(todoService)
 	authController.TaskUseCase = taskPB.NewTaskServiceClient(todoService)
+	authController.TextUseCase = textPB.NewTextServiceClient(todoService)
 
 	// Setup gateway mux
 	gatewayServer := gateway.NewGateway(cfg.Host, cfg.Port)

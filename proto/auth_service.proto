@@ -7,6 +7,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "payload_messages.proto";
 import "activity/payload_messages.proto";
 import "task/payload_messages.proto";
+import "text/payload_messages.proto";
 import "google/protobuf/empty.proto";
 
 option go_package = "./stubs";
@@ -189,4 +190,62 @@ service AuthService {
           description: "This API for delete task by id"
       };
   };
+
+//Text
+  rpc CreateText(CreateTextRequest) returns (TextBaseResponse) {
+        option (google.api.http) = {
+            post: "/todo-gateway/api/v1/text",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: ["Text"]
+            summary: "Create text"
+            description: "This API for creating text"
+        };
+    }
+
+    rpc GetText(GetTextByIDRequest) returns (GetTextByIDResponse) {
+        option (google.api.http) = {
+            get: "/todo-gateway/api/v1/text/{id}",
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: ["Text"]
+            summary: "Get text by id"
+            description: "This API for getting text by id"
+        };
+    }
+
+    rpc GetAllText(GetAllTextByActivityIDRequest) returns (GetAllTextByActivityIDResponse) {
+        option (google.api.http) = {
+            get: "/todo-gateway/api/v1/texts",
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: ["Text"]
+            summary: "Get all texts "
+            description: "This API for get all task"
+        };
+    }
+
+    rpc UpdateText(UpdateTextByIDRequest) returns (TextBaseResponse) {
+        option (google.api.http) = {
+            patch: "/todo-gateway/api/v1/text/{id}",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: ["Text"]
+            summary: "Update text by id"
+            description: "This API for updating text by id"
+        };
+    }
+
+    rpc DeleteText(DeleteTextByIDRequest) returns (TextBaseResponse) {
+        option (google.api.http) = {
+            delete: "/todo-gateway/api/v1/text/{id}",
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: ["Text"]
+            summary: "Delete text by id"
+            description: "This API for deleting text by id"
+        };
+    }
 }
