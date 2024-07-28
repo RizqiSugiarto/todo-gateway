@@ -725,6 +725,9 @@
       "properties": {
         "title": {
           "type": "string"
+        },
+        "type": {
+          "type": "string"
         }
       }
     },
@@ -816,6 +819,9 @@
       "type": "object",
       "properties": {
         "title": {
+          "type": "string"
+        },
+        "type": {
           "type": "string"
         }
       }
