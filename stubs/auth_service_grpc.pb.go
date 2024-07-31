@@ -10,6 +10,7 @@ import (
 	context "context"
 	activity "github.com/digisata/todo-gateway/stubs/activity"
 	task "github.com/digisata/todo-gateway/stubs/task"
+	text "github.com/digisata/todo-gateway/stubs/text"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -35,6 +36,11 @@ const (
 	AuthService_UpdateTask_FullMethodName      = "/proto.AuthService/UpdateTask"
 	AuthService_BatchUpdateTask_FullMethodName = "/proto.AuthService/BatchUpdateTask"
 	AuthService_DeleteTask_FullMethodName      = "/proto.AuthService/DeleteTask"
+	AuthService_CreateText_FullMethodName      = "/proto.AuthService/CreateText"
+	AuthService_GetText_FullMethodName         = "/proto.AuthService/GetText"
+	AuthService_GetAllText_FullMethodName      = "/proto.AuthService/GetAllText"
+	AuthService_UpdateText_FullMethodName      = "/proto.AuthService/UpdateText"
+	AuthService_DeleteText_FullMethodName      = "/proto.AuthService/DeleteText"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -57,6 +63,12 @@ type AuthServiceClient interface {
 	UpdateTask(ctx context.Context, in *task.UpdateTaskByIDRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error)
 	BatchUpdateTask(ctx context.Context, in *task.BatchUpdateTaskRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error)
 	DeleteTask(ctx context.Context, in *task.DeleteTaskByIDRequest, opts ...grpc.CallOption) (*task.TaskBaseResponse, error)
+	// Text
+	CreateText(ctx context.Context, in *text.CreateTextRequest, opts ...grpc.CallOption) (*text.TextBaseResponse, error)
+	GetText(ctx context.Context, in *text.GetTextByIDRequest, opts ...grpc.CallOption) (*text.GetTextByIDResponse, error)
+	GetAllText(ctx context.Context, in *text.GetAllTextByActivityIDRequest, opts ...grpc.CallOption) (*text.GetAllTextByActivityIDResponse, error)
+	UpdateText(ctx context.Context, in *text.UpdateTextByIDRequest, opts ...grpc.CallOption) (*text.TextBaseResponse, error)
+	DeleteText(ctx context.Context, in *text.DeleteTextByIDRequest, opts ...grpc.CallOption) (*text.TextBaseResponse, error)
 }
 
 type authServiceClient struct {
@@ -197,6 +209,56 @@ func (c *authServiceClient) DeleteTask(ctx context.Context, in *task.DeleteTaskB
 	return out, nil
 }
 
+func (c *authServiceClient) CreateText(ctx context.Context, in *text.CreateTextRequest, opts ...grpc.CallOption) (*text.TextBaseResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(text.TextBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_CreateText_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) GetText(ctx context.Context, in *text.GetTextByIDRequest, opts ...grpc.CallOption) (*text.GetTextByIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(text.GetTextByIDResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetText_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) GetAllText(ctx context.Context, in *text.GetAllTextByActivityIDRequest, opts ...grpc.CallOption) (*text.GetAllTextByActivityIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(text.GetAllTextByActivityIDResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetAllText_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) UpdateText(ctx context.Context, in *text.UpdateTextByIDRequest, opts ...grpc.CallOption) (*text.TextBaseResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(text.TextBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_UpdateText_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) DeleteText(ctx context.Context, in *text.DeleteTextByIDRequest, opts ...grpc.CallOption) (*text.TextBaseResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(text.TextBaseResponse)
+	err := c.cc.Invoke(ctx, AuthService_DeleteText_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility
@@ -217,6 +279,12 @@ type AuthServiceServer interface {
 	UpdateTask(context.Context, *task.UpdateTaskByIDRequest) (*task.TaskBaseResponse, error)
 	BatchUpdateTask(context.Context, *task.BatchUpdateTaskRequest) (*task.TaskBaseResponse, error)
 	DeleteTask(context.Context, *task.DeleteTaskByIDRequest) (*task.TaskBaseResponse, error)
+	// Text
+	CreateText(context.Context, *text.CreateTextRequest) (*text.TextBaseResponse, error)
+	GetText(context.Context, *text.GetTextByIDRequest) (*text.GetTextByIDResponse, error)
+	GetAllText(context.Context, *text.GetAllTextByActivityIDRequest) (*text.GetAllTextByActivityIDResponse, error)
+	UpdateText(context.Context, *text.UpdateTextByIDRequest) (*text.TextBaseResponse, error)
+	DeleteText(context.Context, *text.DeleteTextByIDRequest) (*text.TextBaseResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -262,6 +330,21 @@ func (UnimplementedAuthServiceServer) BatchUpdateTask(context.Context, *task.Bat
 }
 func (UnimplementedAuthServiceServer) DeleteTask(context.Context, *task.DeleteTaskByIDRequest) (*task.TaskBaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTask not implemented")
+}
+func (UnimplementedAuthServiceServer) CreateText(context.Context, *text.CreateTextRequest) (*text.TextBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateText not implemented")
+}
+func (UnimplementedAuthServiceServer) GetText(context.Context, *text.GetTextByIDRequest) (*text.GetTextByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetText not implemented")
+}
+func (UnimplementedAuthServiceServer) GetAllText(context.Context, *text.GetAllTextByActivityIDRequest) (*text.GetAllTextByActivityIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllText not implemented")
+}
+func (UnimplementedAuthServiceServer) UpdateText(context.Context, *text.UpdateTextByIDRequest) (*text.TextBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateText not implemented")
+}
+func (UnimplementedAuthServiceServer) DeleteText(context.Context, *text.DeleteTextByIDRequest) (*text.TextBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteText not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 
@@ -510,6 +593,96 @@ func _AuthService_DeleteTask_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_CreateText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(text.CreateTextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).CreateText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_CreateText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).CreateText(ctx, req.(*text.CreateTextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_GetText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(text.GetTextByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GetText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetText(ctx, req.(*text.GetTextByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_GetAllText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(text.GetAllTextByActivityIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetAllText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GetAllText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetAllText(ctx, req.(*text.GetAllTextByActivityIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_UpdateText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(text.UpdateTextByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).UpdateText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_UpdateText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).UpdateText(ctx, req.(*text.UpdateTextByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_DeleteText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(text.DeleteTextByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).DeleteText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_DeleteText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).DeleteText(ctx, req.(*text.DeleteTextByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -568,6 +741,26 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteTask",
 			Handler:    _AuthService_DeleteTask_Handler,
+		},
+		{
+			MethodName: "CreateText",
+			Handler:    _AuthService_CreateText_Handler,
+		},
+		{
+			MethodName: "GetText",
+			Handler:    _AuthService_GetText_Handler,
+		},
+		{
+			MethodName: "GetAllText",
+			Handler:    _AuthService_GetAllText_Handler,
+		},
+		{
+			MethodName: "UpdateText",
+			Handler:    _AuthService_UpdateText_Handler,
+		},
+		{
+			MethodName: "DeleteText",
+			Handler:    _AuthService_DeleteText_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -145,5 +145,12 @@ func protectedMethods() map[string]bool {
 		constants.PATH + "UpdateTask":      true,
 		constants.PATH + "BatchUpdateTask": true,
 		constants.PATH + "DeleteTask":      true,
+
+		//Text
+		constants.PATH + "CreateText": true,
+		constants.PATH + "GetAllText": true,
+		constants.PATH + "GetText":    true,
+		constants.PATH + "UpdateText": true,
+		constants.PATH + "DeleteText": true,
 	}
 }
